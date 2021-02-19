@@ -1,12 +1,15 @@
 ## users テーブル
 
-| Column     | Type    | Options   |
-| ---------- | ------- | --------- |
-| nickname   | string  | NOT NULL  |
-| email      | string  | NOT NULL  |
-| password   | string  | NOT NULL  |
-| name       | string  | NOT NULL  |
-| birthday   | string  | NOT NULL  | 
+| Column             | Type    | Options      |
+| ------------------ | ------- | ------------ |
+| nickname           | string  | null: false  |
+| email              | string  | unique: true |
+| encrypted_password | string  | null: false  |
+| first_name         | string  | null: false  |
+| last_name          | string  | null: false  |
+| first_name         | string  | null: false  |
+| last_name          | string  | null: false  |
+| birthday           | date    | null: false  | 
 
 ### Association
 - has_many :items
@@ -15,21 +18,20 @@
 
 ## items テーブル
 
-| Column              | Type      | Options   |
-| ------------------- | --------- | --------- |
-| image               |           | NOT NULL  |
-| item_name           | string    | NOT NULL  |
-| item_description    | text      | NOT NULL  |
-| category            | string    | NOT NULL  | 
-| item_status         | string    | NOT NULL  | 
-| shipping_fee        | string    | NOT NULL  |
-| shipping_address    | string    | NOT NULL  |
-| shipping_date       | string    | NOT NULL  |
-| price               | integer   | NOT NULL  |
-| user_id             | reference |           |
+| Column              | Type      | Options      |
+| ------------------- | --------- | ------------ |
+| name                | string    | null: false  |
+| description         | text      | null: false  |
+| category_id         | integer   | null: false  | 
+| item_status_id      | integer   | null: false  | 
+| shipping_fee_id     | integer   | null: false  |
+| shipping_address_id | integer   | null: false  |
+| shipping_date_id    | integer   | null: false  |
+| price               | integer   | null: false  |
+| user                | reference |              |
 
 ### Association
-- has_many :buyers
+- belongs_to :buyers
 - belongs_to :user
 
 
@@ -37,11 +39,8 @@
 
 | Column        | Type      | Options   |
 | ------------- | --------- | --------- |
-| card_number   | integer   | NOT NULL  |
-| deadline      | integer   | NOT NULL  |
-| security code | integer   | NOT NULL  |
-| user_id       | reference |           |
-| item_id       | reference |           |
+| user          | reference |           |
+| item          | reference |           |
 
 ### Association
 - belongs_to :item
@@ -51,14 +50,15 @@
 
 ## addresses テーブル
 
-| Column         | Type      | Options   |
-| -------------  | --------- | --------- |
-| postal_code    | integer   | NOT NULL  |
-| prefectuures   | string    | NOT NULL  |
-| municipalities | string    | NOT NULL  |
-| address        | string    | NOT NULL  |
-| building_name  | string    |           | 
-| phone_number   | integer   | NOT NULL  |
+| Column              | Type      | Options      |
+| ------------------- | --------- | ------------ |
+| postal_code         | string    | null: false  |
+| shipping_address_id | string    | null: false  |
+| municipalities      | string    | null: false  |
+| address             | string    | null: false  |
+| building_name       | string    |              | 
+| phone_number        | string    | null: false  |
+| buyer               | reference |              |
 
 ### Association
 - belongs_to :buyer
