@@ -3,7 +3,7 @@
 | Column             | Type    | Options      |
 | ------------------ | ------- | ------------ |
 | nickname           | string  | null: false  |
-| email              | string  | null: false  |
+| email              | string  | unique: true |
 | encrypted_password | string  | null: false  |
 | first_name         | string  | null: false  |
 | last_name          | string  | null: false  |
@@ -31,7 +31,7 @@
 | user                | reference | foreign_key: true |
 
 ### Association
-- belongs_to :buyer
+- has_one :buyer
 - belongs_to :user
 
 
@@ -53,7 +53,7 @@
 | Column              | Type      | Options           |
 | ------------------- | --------- | ----------------- |
 | postal_code         | string    | null: false       |
-| shipping_address_id | string    | null: false       |
+| shipping_address_id | integer   | null: false       |
 | municipalities      | string    | null: false       |
 | address             | string    | null: false       |
 | building_name       | string    |                   | 
