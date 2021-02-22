@@ -14,6 +14,12 @@ class User < ApplicationRecord
     validates :last_name2, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
     validates :birthday, presence: true
 
+      with_options  format: { with: /\A[ァ-ヶー－]+\z/ } do
+        validates :first_name2
+        validates :last_name2
+      end
+    end
+    
     has_many :items
     has_many :buyers 
 end
