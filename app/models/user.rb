@@ -10,8 +10,8 @@ class User < ApplicationRecord
     validates :first_name1, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
     validates :last_name1, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
 
-    validates :first_name2, presence: true, { with: /\A[ァ-ヶー－]+\z/ }
-    validates :last_name2, presence: true, { with: /\A[ァ-ヶー－]+\z/ }
+    validates :first_name2, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
+    validates :last_name2, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
     validates :birthday, presence: true
 
     has_many :items
