@@ -12,20 +12,18 @@ class Item < ApplicationRecord
     validates :shipping_fee_id
     validates :shipping_address_id
     validates :shipping_date_id
-    validates :price
+    validates :price, numericality: { only_integer: true, greater_than: 299, less_than: 10_000_000 }
   end
 
-  validates :category_id, numericality: { other_than: 1 } 
-
-  validates :item_status_id, numericality: { other_than: 1 } 
-
-  validates :shipping_fee_id, numericality: { other_than: 1 } 
-
-  validates :shipping_address_id, numericality: { other_than: 1 } 
-
-  validates :shipping_date_id, numericality: { other_than: 1 } 
+  with_options numericality: { other_than: 1 }  do
+    validates :category_id
+    validates :item_status_id
+    validates :shipping_fee_id
+    validates :shipping_address_id
+    validates :shipping_date_id
+  end
   
-  has_one :buyer
+  # has_one :buyer
   belongs_to :user
   has_one_attached :image
 end
