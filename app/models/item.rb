@@ -4,6 +4,7 @@ class Item < ApplicationRecord
   belongs_to :category
 
   with_options presence: true do
+    validates :image
     validates :name
     validates :description
     validates :category_id
