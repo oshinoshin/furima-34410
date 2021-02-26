@@ -2,6 +2,10 @@ class Item < ApplicationRecord
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
+  belongs_to :item_status
+  belongs_to :shipping_fee
+  belongs_to :shipping_address
+  belongs_to :shipping_date
 
   with_options presence: true do
     validates :image
