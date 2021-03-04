@@ -36,7 +36,7 @@ RSpec.describe BuyerAddress, type: :model do
         end
 
         it 'postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
-          @buyer_address.postal_code = 1800002
+          @buyer_address.postal_code = "1800002"
           @buyer_address.valid?
           expect(@buyer_address.errors.full_messages).to include("Postal code is invalid")
         end
@@ -73,6 +73,12 @@ RSpec.describe BuyerAddress, type: :model do
 
         it 'phone_numberが数字のみで無いと保存できないこと' do
           @buyer_address.phone_number = "aaaaaaaaaa"
+          @buyer_address.valid?
+          expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
+        end
+
+        it 'phone_numberが12桁以上では登録できないこと' do
+          @buyer_address.phone_number = "111111111111"
           @buyer_address.valid?
           expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
         end
