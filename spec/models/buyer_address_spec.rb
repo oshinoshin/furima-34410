@@ -56,11 +56,31 @@ RSpec.describe BuyerAddress, type: :model do
           @buyer_address.building_name = nil
           expect(@buyer_address).to be_valid
         end
+
         it 'phone_numberが空だと保存できないこと' do
           @buyer_address.phone_number = nil
           @buyer_address.valid?
           expect(@buyer_address.errors.full_messages).to include("Phone number can't be blank")
         end
+
+        it 'phone_numberが数字のみで無いと保存できないこと' do
+          @buyer_address.phone_number = "aaaaaaaaaa"
+          @buyer_address.valid?
+          expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
+        end
+
+        it 'user_idが空だと登録できない' do
+          @buyer_address.user_id = nil
+          @buyer_address.valid?
+          expect(@buyer_address.errors.full_messages).to include("User can't be blank")
+        end
+
+        it 'item_idが空だと登録できない' do
+          @buyer_address.item_id = nil
+          @buyer_address.valid?
+          expect(@buyer_address.errors.full_messages).to include("Item can't be blank")
+        end
+
       end
     end
 end

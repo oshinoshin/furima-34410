@@ -7,14 +7,14 @@ class BuyerAddress
     validates :shipping_address_id, numericality: {other_than: 0}
     validates :municipalities
     validates :address
-    validates :phone_number, format: {with: /\A[0-9]+\z/}
+    validates :phone_number, format: {with: /\A\d{10,11}\z/}
+    validates :user_id
+    validates :item_id
     validates :token
   end
 
   def save
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
-    # 住所を保存する
-    # donation_idには、変数donationのidと指定する
     Address.create(postal_code: postal_code, shipping_address_id: shipping_address_id, municipalities: municipalities, address: address, building_name: building_name, phone_number: phone_number, buyer_id: buyer.id) 
   end
 end
