@@ -17,5 +17,6 @@ class BuyerAddress
     buyer = Buyer.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, shipping_address_id: shipping_address_id, municipalities: municipalities, address: address, building_name: building_name, phone_number: phone_number, buyer_id: buyer.id) 
   end
+
 end
 

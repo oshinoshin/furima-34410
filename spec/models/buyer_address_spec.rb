@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe BuyerAddress, type: :model do
     before do
-      @buyer_address = FactoryBot.build(:buyer_address)
+      user = FactoryBot.create(:user)
+      item = FactoryBot.create(:item)
+      @buyer_address = FactoryBot.build(:buyer_address, user_id: user.id, item_id: item.id)
     end
 
     describe '商品購入機能' do
@@ -10,6 +12,11 @@ RSpec.describe BuyerAddress, type: :model do
         
         it 'クレジットカード情報と配送先が記載されていれば購入できる' do
         expect(@buyer_address).to be_valid
+        end
+
+        it 'building_nameは空でも保存できること' do
+          @buyer_address.building_name = nil
+          expect(@buyer_address).to be_valid
         end
       
       end
@@ -40,6 +47,12 @@ RSpec.describe BuyerAddress, type: :model do
           expect(@buyer_address.errors.full_messages).to include("Shipping address can't be blank", "Shipping address is not a number")
         end
 
+        it 'shipping_address_idが0以外でない保存できないこと' do
+          @buyer_address.shipping_address_id = 0
+          @buyer_address.valid?
+          expect(@buyer_address.errors.full_messages).to include("Shipping address must be other than 0")
+        end
+
         it 'municipalitiesが空では保存できないこと' do
           @buyer_address.municipalities = nil
           @buyer_address.valid?
@@ -50,11 +63,6 @@ RSpec.describe BuyerAddress, type: :model do
           @buyer_address.address = nil
           @buyer_address.valid?
           expect(@buyer_address.errors.full_messages).to include("Address can't be blank")
-        end
-
-        it 'building_nameは空でも保存できること' do
-          @buyer_address.building_name = nil
-          expect(@buyer_address).to be_valid
         end
 
         it 'phone_numberが空だと保存できないこと' do
