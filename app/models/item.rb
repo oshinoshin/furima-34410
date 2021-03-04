@@ -27,7 +27,7 @@ class Item < ApplicationRecord
     validates :shipping_date_id
   end
   
-  # has_one :buyer
+  has_one :buyer
   belongs_to :user
   has_one_attached :image
 end
